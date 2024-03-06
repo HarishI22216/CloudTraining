@@ -1,6 +1,7 @@
 package com.vedam.usermanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,19 +11,19 @@ import com.vedam.usermanagement.model.Role;
 import com.vedam.usermanagement.repository.RoleRepository;
 
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/api/roles")
 public class RoleController {
 	@Autowired
-	RoleRepository roleRepo;
+	RoleRepository roleRepository;
 
-	@PostMapping("/add")
-	public Role add(@RequestBody Role role) {
-		return roleRepo.save(role);
+	@GetMapping
+	public Iterable<Role> getRoles() {
+		return roleRepository.findAll();
 	}
-	
-	@PostMapping("/test")
-	public String add() {
-		return "test";
+
+	@PostMapping("/create")
+	public Role add(@RequestBody Role role) {
+		return roleRepository.save(role);
 	}
 
 }
